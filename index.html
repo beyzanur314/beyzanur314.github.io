@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyzanur Altındal — Junior Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ────────────────────────────────────────────
+   TOKENS
+──────────────────────────────────────────── */
+:root {
+  --ink:      #0e0e10;
+  --paper:    #f5f2ec;
+  --cream:    #ede9e0;
+  --warm:     #e8e0d0;
+  --gold:     #b08d57;
+  --gold-lt:  #d4aa72;
+  --rust:     #8b3a3a;
+  --sage:     #4a6741;
+  --muted:    #7a7268;
+  --border:   rgba(176,141,87,0.22);
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --mono:     'DM Mono', 'Courier New', monospace;
+}
+
+/* ────────────────────────────────────────────
+   RESET & BASE
+──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ────────────────────────────────────────────
+   NOISE TEXTURE OVERLAY
+──────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ────────────────────────────────────────────
+   NAV
+──────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background: rgba(245,242,236,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+/* ────────────────────────────────────────────
+   HERO
+──────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 120px 48px 80px;
+  overflow: hidden;
+}
+
+.hero-bg-text {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center center;
+  font-family: var(--serif);
+  font-size: clamp(80px, 14vw, 180px);
+  font-weight: 300;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(176,141,87,0.12);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.hero-inner {
+  max-width: 760px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+h1.hero-name em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+.hero-bio {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #4a4540;
+  max-width: 520px;
+  margin-bottom: 40px;
+  font-family: var(--mono);
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.tag {
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(176,141,87,0.05);
+  transition: all 0.2s;
+}
+
+.tag:hover { border-color: var(--gold); color: var(--gold); background: rgba(176,141,87,0.1); }
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  padding: 12px 28px;
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+
+.btn-secondary {
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--gold); }
+
+/* Technical decoration */
+.tech-accent {
+  font-size: 11px;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-top: 48px;
+  letter-spacing: 0.08em;
+}
+
+/* ────────────────────────────────────────────
+   SECTION WRAPPER
+──────────────────────────────────────────── */
+section {
+  padding: 100px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.section-num {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+h2.section-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+h2.section-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ────────────────────────────────────────────
+   DIVIDER
+──────────────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ────────────────────────────────────────────
+   ABOUT
+──────────────────────────────────────────── */
+#about .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.about-text {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #3a3530;
+}
+
+.about-text p + p { margin-top: 16px; }
+
+.about-text strong { color: var(--gold); font-weight: 500; }
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.stat-box {
+  padding: 20px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  position: relative;
+}
+
+.stat-box::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 24px; height: 3px;
+  background: var(--gold);
+}
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ────────────────────────────────────────────
+   SKILLS
+──────────────────────────────────────────── */
+#skills .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.skill-cat {
+  background: var(--paper);
+  padding: 28px;
+}
+
+.skill-cat-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #3a3530;
+}
+
+.skill-item::before {
+  content: '▸';
+  color: var(--gold);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* ────────────────────────────────────────────
+   PROJECTS
+──────────────────────────────────────────── */
+#projects .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.project-card {
+  border: 1px solid var(--border);
+  background: var(--cream);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.project-card:hover::after { width: 100%; }
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(176,141,87,0.1); }
+
+.project-card.featured {
+  grid-column: 1 / -1;
+}
+
+/* Project screenshot area */
+.project-thumb {
+  width: 100%;
+  height: 180px;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.project-thumb.daycare {
+  background: linear-gradient(135deg, #0d1117 0%, #1a2332 50%, #0d1a1a 100%);
+}
+.project-thumb.chingu {
+  background: linear-gradient(135deg, #0d0f14 0%, #1a1428 50%, #140d1a 100%);
+}
+.project-thumb.taskman {
+  background: linear-gradient(135deg, #0f140d 0%, #1a2814 50%, #141f0d 100%);
+}
+.project-thumb.tracker {
+  background: linear-gradient(135deg, #14100d 0%, #281e14 50%, #1f160d 100%);
+}
+
+.project-thumb.featured-thumb {
+  height: 220px;
+}
+
+/* Code preview inside thumb */
+.thumb-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  padding: 16px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.thumb-code .c-keyword { color: #c586c0; }
+.thumb-code .c-class   { color: #4ec9b0; }
+.thumb-code .c-ann     { color: #9cdcfe; }
+.thumb-code .c-str     { color: #ce9178; }
+.thumb-code .c-comment { color: #6a9955; }
+
+.thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+}
+
+.thumb-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  z-index: 3;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: rgba(176,141,87,0.2);
+  border: 1px solid rgba(176,141,87,0.4);
+  color: var(--gold-lt);
+  border-radius: 2px;
+}
+
+.project-body {
+  padding: 22px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-num {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: rgba(176,141,87,0.15);
+  line-height: 1;
+  position: absolute;
+  top: 16px; right: 20px;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.stack-tag {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 1px;
+}
+
+.project-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.project-desc {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #4a4540;
+  margin-bottom: 12px;
+}
+
+/* Bullet achievements */
+.project-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.project-bullets li {
+  font-size: 11px;
+  color: #5a5248;
+  line-height: 1.5;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.project-bullets li::before {
+  content: '▸';
+  color: var(--gold);
+  font-size: 9px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.proj-link {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity 0.2s;
+}
+
+.proj-link:hover { opacity: 0.7; }
+.proj-link::after { content: ' →'; }
+
+/* ────────────────────────────────────────────
+   EXPERIENCE
+──────────────────────────────────────────── */
+#experience .exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.exp-item:first-child { padding-top: 0; }
+
+.exp-meta { padding-top: 2px; }
+
+.exp-date {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.exp-role {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.exp-company {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.exp-desc {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #4a4540;
+}
+
+/* ────────────────────────────────────────────
+   WRITING
+──────────────────────────────────────────── */
+#writing .writing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.article-card {
+  border: 1px solid var(--border);
+  padding: 24px;
+  background: var(--cream);
+  transition: all 0.2s;
+  display: block;
+}
+
+.article-card:hover { border-color: var(--gold); }
+
+.article-platform {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.article-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.article-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.article-read {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.article-read::after { content: ' →'; }
+
+/* ────────────────────────────────────────────
+   CERTS & EDUCATION
+──────────────────────────────────────────── */
+#education .edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.edu-block h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.edu-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-item:first-of-type { border-top: 1px solid var(--border); }
+
+.edu-name {
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 3px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.edu-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.cert-year {
+  float: right;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  opacity: 0.8;
+  font-family: var(--mono);
+}
+
+/* ────────────────────────────────────────────
+   TECH PROFILE BANNER (GKS YERİNE EKLEDİĞİMİZ ALAN)
+──────────────────────────────────────────── */
+.tech-banner {
+  margin: 0 48px;
+  padding: 32px 40px;
+  background: var(--ink);
+  border: 1px solid rgba(176,141,87,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.tech-banner::before {
+  content: '</>';
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 80px;
+  color: var(--gold);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.tech-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tech-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.tech-banner-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 300;
+  color: #f5f2ec;
+}
+
+.tech-banner-title em { font-style: italic; color: var(--gold-lt); }
+
+.tech-sub {
+  font-size: 11px;
+  color: rgba(245,242,236,0.45);
+  letter-spacing: 0.06em;
+}
+
+.tech-right {
+  display: flex;
+  gap: 32px;
+  flex-shrink: 0;
+}
+
+.tech-stat {
+  text-align: center;
+}
+
+.tech-stat-num {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--gold-lt);
+  line-height: 1;
+}
+
+.tech-stat-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,0.35);
+  margin-top: 4px;
+}
+
+/* ────────────────────────────────────────────
+   CONTACT
+──────────────────────────────────────────── */
+#contact {
+  text-align: center;
+  padding: 100px 48px 80px;
+}
+
+#contact .section-header {
+  justify-content: center;
+}
+
+.contact-tagline {
+  font-family: var(--serif);
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.3;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.contact-link:hover { color: var(--gold); }
+
+.contact-link-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-link-value {
+  font-family: var(--serif);
+  font-size: 15px;
+}
+
+/* ────────────────────────────────────────────
+   FOOTER
+──────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 100%;
+}
+
+.footer-tech-note {
+  color: var(--gold);
+  opacity: 0.7;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+/* ────────────────────────────────────────────
+   ANIMATIONS
+──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow  { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+h1.hero-name   { animation: fadeUp 0.6s ease both; animation-delay: 0.2s; }
+.hero-title    { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
+.hero-bio      { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
+.hero-tags     { animation: fadeUp 0.6s ease both; animation-delay: 0.5s; }
+.hero-ctas     { animation: fadeUp 0.6s ease both; animation-delay: 0.6s; }
+.tech-accent   { animation: fadeUp 0.6s ease both; animation-delay: 0.8s; }
+
+/* ────────────────────────────────────────────
+   RESPONSIVE
+──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  section { padding: 64px 20px; }
+  #hero { padding: 100px 20px 60px; }
+  #about .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  #skills .skills-grid { grid-template-columns: 1fr; }
+  #projects .projects-grid { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  #education .edu-grid { grid-template-columns: 1fr; gap: 32px; }
+  #writing .writing-grid { grid-template-columns: 1fr; }
+  .tech-banner { flex-direction: column; padding: 24px; margin: 0 20px; }
+  .tech-right { justify-content: center; }
+  footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .contact-links { gap: 20px; }
+  .project-thumb { height: 140px; }
+  .project-thumb.featured-thumb { height: 160px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Beyzanur Altındal</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:100%;padding-left:10%;padding-right:10%;">
+  <div class="hero-bg-text">ENGINEER</div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Junior Software Developer</div>
+    <h1 class="hero-name">Beyzanur<br><em>Altındal</em></h1>
+    <p class="hero-title">Backend Developer · Java & Spring Boot</p>
+    <p class="hero-bio">
+      Computer Programming graduate passionate about <strong style="color:var(--gold)">Java, Spring Boot, Backend Development</strong> and Artificial Intelligence integrations[cite: 2].
+      I build secure REST APIs with Spring Security, design relational database schemas[cite: 2],
+      and deploy AI agent systems into modern web architectures[cite: 1] —
+      sharing insights about optimized software delivery and structural code performance.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Java 17</span>
+      <span class="tag">Spring Boot 3</span>
+      <span class="tag">Spring Security</span>
+      <span class="tag">SQL Server</span>
+      <span class="tag">Python</span>
+      <span class="tag">Kotlin</span>
+      <span class="tag">AI Agents</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="https://github.com/beyzanur314" target="_blank" class="btn-secondary">GitHub Profile</a>
+    </div>
+    <p class="tech-accent">clean code · microservices architecture · open source contributor</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01.</span>
+    <h2 class="section-title">About <em>Me</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a Junior Software Developer with an Associate Degree in Computer Programming
+        from <strong>Gazi University</strong>, Ankara[cite: 2]. My primary technical focus is <strong>Java 17 & Spring Boot 3</strong>
+        — designing highly scalable, well-documented REST APIs with robust security layers and relational databases[cite: 2].
+      </p>
+      <p>
+        My experience includes engineering data pipelines and testing code-level optimizations for Turkey's national open-source
+        <strong>T3 AI initiative</strong>[cite: 2]. This developer role allowed me to work closely on data curation models
+        and deepened my domain interest in intelligent enterprise applications and LLM agent architecture[cite: 1, 2].
+      </p>
+      <p>
+        I continuously focus on software engineering principles, cloud fundamentals, and clean code practices. I aim to build high-performance backend systems while actively writing technical write-ups in both English and Turkish about backend development, AI tools, and full-stack software architecture[cite: 1, 2].
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-box">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Tech Certifications</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Production Projects</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Tech Stack Tools</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">B1</div>
+        <div class="stat-label">English Level</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02.</span>
+    <h2 class="section-title">Skills &amp; <em>Stack</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cat">
+      <div class="skill-cat-label">Backend</div>
+      <div class="skill-items">
+        <div class="skill-item">Java 17</div>
+        <div class="skill-item">Spring Boot 3</div>
+        <div class="skill-item">Spring Security</div>
+        <div class="skill-item">REST API Design</div>
+        <div class="skill-item">SQL / MS SQL Server</div>
+        <div class="skill-item">Swagger / OpenAPI</div>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-label">Other Languages</div>
+      <div class="skill-items">
+        <div class="skill-item">Python</div>
+        <div class="skill-item">Kotlin</div>
+        <div class="skill-item">JavaScript</div>
+        <div class="skill-item">C#</div>
+        <div class="skill-item">Rust (Bootcamp)</div>
+        <div class="skill-item">HTML5 / CSS</div>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-label">Cloud & Tools</div>
+      <div class="skill-items">
+        <div class="skill-item">AWS (AI Fundamentals)</div>
+        <div class="skill-item">Google OAuth2</div>
+        <div class="skill-item">Groq API</div>
+        <div class="skill-item">Jetpack Compose</div>
+        <div class="skill-item">Git / GitHub</div>
+        <div class="skill-item">Microsoft Office</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03.</span>
+    <h2 class="section-title">Selected <em>Projects</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="projects-grid">
+
+    <!-- FEATURED: Daycare Automation -->
+    <div class="project-card featured">
+      <div class="project-thumb daycare featured-thumb">
+        <div class="thumb-overlay"></div>
+        <div class="thumb-badge">Featured Project</div>
+        <div class="thumb-code">
+<span class="c-ann">@RestController</span><br>
+<span class="c-ann">@RequestMapping</span>(<span class="c-str">"/api/daycare"</span>)<br>
+<span class="c-keyword">public class</span> <span class="c-class">DaycareController</span> {<br>
+&nbsp;&nbsp;<span class="c-ann">@Autowired</span><br>
+&nbsp;&nbsp;<span class="c-keyword">private</span> <span class="c-class">AttendanceService</span> service;<br><br>
+&nbsp;&nbsp;<span class="c-ann">@GetMapping</span>(<span class="c-str">"/attendance"</span>)<br>
+&nbsp;&nbsp;<span class="c-keyword">public</span> <span class="c-class">ResponseEntity</span>&lt;List&lt;<span class="c-class">Record</span>&gt;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;getRecords() { <span class="c-comment">// ...</span> }<br>
+}
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-stack">
+          <span class="stack-tag">Java</span>
+          <span class="stack-tag">Spring Boot</span>
+          <span class="stack-tag">MVC Architecture</span>
+          <span class="stack-tag">REST API</span>
+          <span class="stack-tag">SQL</span>
+        </div>
+        <h3 class="project-title">Daycare Automation System</h3>
+        <p class="project-desc">
+          Full backend enterprise system developed during internship at the General Directorate of Forestry[cite: 2].
+          Handles structural scheduling, attendance tracking, and communications — production-ready with full API coverage[cite: 2].
+        </p>
+        <ul class="project-bullets">
+          <li>Developed REST APIs with Spring Boot following MVC Architecture[cite: 2]</li>
+          <li>Implemented backend data management and processing modules[cite: 2]</li>
+          <li>Designed relational database schemas for complex internal entity structures[cite: 2]</li>
+          <li>Built structural endpoints ensuring high-speed corporate communication data paths[cite: 2]</li>
+          <li>Successfully finalized project requirements under production guidelines[cite: 2]</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/beyzanur314" target="_blank" class="proj-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ChinguAI -->
+    <div class="project-card">
+      <div class="project-thumb chingu">
+        <div class="thumb-overlay"></div>
+        <div class="thumb-badge">AI · Full-Stack</div>
+        <div class="thumb-code">
+<span class="c-ann">@Service</span><br>
+<span class="c-keyword">public class</span> <span class="c-class">GroqService</span> {<br>
+&nbsp;&nbsp;<span class="c-keyword">public</span> String chat(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String prompt,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-class">List</span>&lt;<span class="c-class">Message</span>&gt; history<br>
+&nbsp;&nbsp;) { <span class="c-comment">// Groq API call</span> }<br>
+}
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-stack">
+          <span class="stack-tag">Spring Boot 3</span>
+          <span class="stack-tag">Groq API</span>
+          <span class="stack-tag">OAuth2</span>
+          <span class="stack-tag">SQL Server</span>
+          <span class="stack-tag">AI Agent</span>
+        </div>
+        <h3 class="project-title">ChinguAI</h3>
+        <p class="project-desc">Full-stack generative AI application integrating an autonomous AI agent architecture with secure session persistence[cite: 1].</p>
+        <ul class="project-bullets">
+          <li>Integrated Groq LLM API with model switching capabilities for autonomous reasoning[cite: 1, 2]</li>
+          <li>Implemented secure Google OAuth2 authentication flow with Spring Security layers[cite: 1, 2]</li>
+          <li>Curated and engineered custom datasets to optimize model response context[cite: 1]</li>
+          <li>Persisted real-time chat history data schemas in MS SQL Server instances[cite: 1, 2]</li>
+          <li>Published an engineering deep-dive on DEV.to highlighting system workflows[cite: 2]</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/beyzanur314/ChinguAi" target="_blank" class="proj-link">GitHub</a>
+          <a href="https://dev.to/beyza312/chingu-ai-building-an-ai-chat-app-with-spring-boot-github-copilot-4mja" target="_blank" class="proj-link">DEV.to</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smart Task Manager -->
+    <div class="project-card">
+      <div class="project-thumb taskman">
+        <div class="thumb-overlay"></div>
+        <div class="thumb-badge">Backend API</div>
+        <div class="thumb-code">
+<span class="c-ann">@Entity</span><br>
+<span class="c-keyword">public class</span> <span class="c-class">Task</span> {<br>
+&nbsp;&nbsp;<span class="c-ann">@ManyToOne</span><br>
+&nbsp;&nbsp;<span class="c-keyword">private</span> <span class="c-class">User</span> assignedTo;<br><br>
+&nbsp;&nbsp;<span class="c-comment">// Swagger OpenAPI 3.0</span><br>
+&nbsp;&nbsp;<span class="c-comment">// Spring Security RBAC</span><br>
+}
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-stack">
+          <span class="stack-tag">Spring Boot 3</span>
+          <span class="stack-tag">Spring Security</span>
+          <span class="stack-tag">MS SQL Server</span>
+          <span class="stack-tag">Swagger</span>
+        </div>
+        <h3 class="project-title">Smart Task Manager API</h3>
+        <p class="project-desc">Secure task management backend featuring custom role-based access control (RBAC) and complete API documentation[cite: 2].</p>
+        <ul class="project-bullets">
+          <li>Developed structural REST APIs using Spring Boot 3 and Java 17 architectures[cite: 2]</li>
+          <li>Implemented Spring Security with precise role-based endpoint authorization[cite: 2]</li>
+          <li>Designed efficient One-to-Many entity relational boundaries within MS SQL Server[cite: 2]</li>
+          <li>Integrated Swagger / OpenAPI 3.0 specs for developer-friendly documentation[cite: 2]</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/beyzanur314" target="_blank" class="proj-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Development Tracker -->
+    <div class="project-card">
+      <div class="project-thumb tracker">
+        <div class="thumb-overlay"></div>
+        <div class="thumb-badge">Android · Kotlin</div>
+        <div class="thumb-code">
+<span class="c-ann">@Composable</span><br>
+<span class="c-keyword">fun</span> <span class="c-class">GoalCard</span>(goal: <span class="c-class">Goal</span>) {<br>
+&nbsp;&nbsp;<span class="c-class">Card</span>(modifier = <span class="c-class">Modifier</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;.fillMaxWidth()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.padding(<span class="c-str">16.dp</span>)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-comment">// Jetpack Compose UI</span><br>
+&nbsp;&nbsp;}<br>
+}
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-stack">
+          <span class="stack-tag">Kotlin</span>
+          <span class="stack-tag">Jetpack Compose</span>
+          <span class="stack-tag">Android</span>
+        </div>
+        <h3 class="project-title">Development Tracker</h3>
+        <p class="project-desc">Android mobile application built to log metric metrics, personal progression tracking, and objective management[cite: 2].</p>
+        <ul class="project-bullets">
+          <li>Built using pure Kotlin and modern Jetpack Compose declarative layouts[cite: 2]</li>
+          <li>Monitors tracking metrics and custom metric-driven target allocations[cite: 2]</li>
+          <li>Follows Android architectural clean-app patterns and encapsulation principles[cite: 2]</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/beyzanur314" target="_blank" class="proj-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">04.</span>
+    <h2 class="section-title">Experience &amp; <em>Background</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2024 – 2025<br>Remote</div>
+      </div>
+      <div>
+        <div class="exp-role">Junior Software Developer (Volunteer)</div>
+        <div class="exp-company">T3 AI — National Open-Source Initiative</div>
+        <p class="exp-desc">
+          Contributed to Turkey's open-source T3 AI infrastructure codebase[cite: 2].
+          Managed data engineering, rigorous curation workflows to tune model responses,
+          executed continuous model validation testing, code-level optimizations, and structured technical technical documentation[cite: 2].
+        </p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2025 – Mar 2026<br>Ankara</div>
+      </div>
+      <div>
+        <div class="exp-role">Contract Data Management Specialist</div>
+        <div class="exp-company">Archivist Design Company</div>
+        <p class="exp-desc">
+          Organized corporate digital archives, performed exact-match data entry, data normalization,
+          and document verification flows protecting integrity for scaling project pipelines[cite: 2].
+        </p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2023<br>Ankara</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Development Intern</div>
+        <div class="exp-company">General Directorate of Forestry</div>
+        <p class="exp-desc">
+          Completed a mandatory one-month software development internship[cite: 2]. Architected and built a daycare automation
+          system using Java Spring Boot, developing key knowledge on structural system deployment and backend data architecture[cite: 2].
+        </p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2025<br>Remote</div>
+      </div>
+      <div>
+        <div class="exp-role">Online Intern</div>
+        <div class="exp-company">TNC Group</div>
+        <p class="exp-desc">
+          Completed technical training modules in Python, analytical data organization within Excel, AutoCAD, and Photoshop layouts[cite: 2].
+          Participated in process documentation and project summary writing pipelines[cite: 2].
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TECH BANNER (GKS YERİNE BURASI GELDİ) -->
+<section style="padding:60px 48px;">
+  <div class="tech-banner">
+    <div class="gks-left">
+      <span class="tech-label">Core Specialization</span>
+      <div class="tech-banner-title">Backend Architecture & <em>AI Integrations</em></div>
+      <div class="tech-sub">Robust REST APIs · Data Engineering · Secure System Design</div>
+    </div>
+    <div class="tech-right">
+      <div class="tech-stat">
+        <div class="tech-stat-num">Java</div>
+        <div class="tech-stat-label">Core Lang</div>
+      </div>
+      <div class="tech-stat">
+        <div class="tech-stat-num">Spring</div>
+        <div class="tech-stat-label">Framework</div>
+      </div>
+      <div class="tech-stat">
+        <div class="tech-stat-num">SQL</div>
+        <div class="tech-stat-label">Database</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="section-header">
+    <span class="section-num">05.</span>
+    <h2 class="section-title">Writing &amp; <em>Articles</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="writing-grid">
+
+    <a href="https://dev.to/beyza312/chingu-ai-building-an-ai-chat-app-with-spring-boot-github-copilot-4mja" target="_blank" class="article-card">
+      <div class="article-platform">DEV.to · 2026</div>
+      <h3 class="article-title">ChinguAI: Building an AI Chat App with Spring Boot & GitHub Copilot</h3>
+      <p class="article-desc">A deep dive into building a full-stack AI chatbot — OAuth2, Groq API integration, SQL persistence, and the debugging journey[cite: 2].</p>
+      <span class="article-read">Read Article</span>
+    </a>
+
+    <a href="https://medium.com/@altindalbeyzanur/writing-code-with-chatgpt-is-it-making-you-lazy-or-turning-you-into-a-superhero-14200eb9a99f" target="_blank" class="article-card">
+      <div class="article-platform">Medium · Apr 2026</div>
+      <h3 class="article-title">Writing Code with ChatGPT: Is It Making You Lazy or Turning You Into a Superhero?</h3>
+      <p class="article-desc">A junior backend developer's perspective on using AI as a growth engine rather than a shortcut[cite: 2].</p>
+      <span class="article-read">Read Article</span>
+    </a>
+
+    <a href="https://medium.com/@altindalbeyzanur/bir-chatbot-ile-bir-ai-ajan%C4%B1-aras%C4%B1ndaki-fark-nedir-1446e9fc4a66" target="_blank" class="article-card">
+      <div class="article-platform">Medium (TR) · Feb 2026</div>
+      <h3 class="article-title">Bir Chatbot ile Bir AI Ajanı Arasındaki Fark Nedir?</h3>
+      <p class="article-desc">Chatbot'lar cevap verir, AI ajanları iş yapar. Bu farkın neden önemli olduğunu keşfediyoruz[cite: 2].</p>
+      <span class="article-read">Makaleyi Oku</span>
+    </a>
+
+    <a href="https://medium.com/@altindalbeyzanur" target="_blank" class="article-card">
+      <div class="article-platform">Medium · All Articles</div>
+      <h3 class="article-title">The Human Side of Code</h3>
+      <p class="article-desc">Reflections on technology volunteerism, the T3 AI initiative, and what it means to build for a national open-source mission[cite: 2].</p>
+      <span class="article-read">View All on Medium</span>
+    </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION & CERTS -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">06.</span>
+    <h2 class="section-title">Education &amp; <em>Certifications</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="edu-grid">
+
+    <div class="edu-block">
+      <h3>Education</h3>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2021–2024</span>Gazi University</div>
+        <div class="edu-sub">Associate Degree · Computer Programming · Ankara[cite: 2]</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2016–2020</span>Ümitköy Anatolian Imam Hatip High School</div>
+        <div class="edu-sub">GPA: 86.37 / 100 · Science & Social Sciences · Ankara[cite: 2]</div>
+      </div>
+    </div>
+
+    <div class="edu-block">
+      <h3>Certifications</h3>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2025</span>AI Fundamentals and the Cloud</div>
+        <div class="edu-sub">Amazon Web Services (AWS)[cite: 2]</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2025</span>Python Bootcamp</div>
+        <div class="edu-sub">Turkcell Academy[cite: 2]</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2025</span>Data Science</div>
+        <div class="edu-sub">Turkcell Academy[cite: 2]</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2024</span>Rust Bootcamp</div>
+        <div class="edu-sub">Rise In · Patika[cite: 2]</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2024</span>Introduction to Machine Learning</div>
+        <div class="edu-sub">AI Business School · Global AI Hub[cite: 2]</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-name"><span class="cert-year">2024</span>Python Tutorial</div>
+        <div class="edu-sub">AI Business School · Global AI Hub[cite: 2]</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header" style="justify-content:center;">
+    <span class="section-num">07.</span>
+    <h2 class="section-title">Get in <em>Touch</em></h2>
+  </div>
+  <p class="contact-tagline">
+    Open to backend engineering opportunities, open-source projects, and technical collaborations.
+  </p>
+  <div class="contact-links">
+    <a href="https://github.com/beyzanur314" target="_blank" class="contact-link">
+      <span class="contact-link-label">GitHub</span>
+      <span class="contact-link-value">beyzanur314</span>
+    </a>
+    <a href="https://linkedin.com/in/beyzanur-altındal-9b8653223" target="_blank" class="contact-link">
+      <span class="contact-link-label">LinkedIn</span>
+      <span class="contact-link-value">beyzanur-altındal</span>
+    </a>
+    <a href="https://medium.com/@altindalbeyzanur" target="_blank" class="contact-link">
+      <span class="contact-link-label">Medium</span>
+      <span class="contact-link-value">@altindalbeyzanur</span>
+    </a>
+    <a href="https://dev.to/beyza312" target="_blank" class="contact-link">
+      <span class="contact-link-label">DEV.to</span>
+      <span class="contact-link-value">beyza312</span>
+    </a>
+  </div>
+  <a href="mailto:altindalbeyzanur@gmail.com" class="btn-primary" style="margin:0 auto;display:inline-flex;">Say Hello →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Beyzanur Altındal · Ankara, Türkiye</span>
+  <span class="footer-tech-note">building scalable digital systems ✦</span>
+  <span>Junior Software Developer</span>
+</footer>
+
+</body>
+</html>
